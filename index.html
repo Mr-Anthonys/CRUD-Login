@@ -11,21 +11,23 @@
         <h1>Controle de gastos</h1>
         <div>    
             <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required placeholder="seu@email.com"><br><br>
+            <input type="email" id="email" name="email" required placeholder="seu@email.com" onchange="validateFields()" id="email"><br><br>
         </div>
         <div>
             <label for="senha">Senha:</label><br>
             <input type="password" id="senha" name="senha" required placeholder="Senha"><br><br>
         </div>
         <div>
-            <button type="button" class="clear">Recuperar senha</button>
+            <button type="button" class="clear" disabled>Recuperar senha</button>
         </div>
         <div>
-            <button type="button" class="solid">Entrar</button>
+            <button type="button" class="solid" disabled>Entrar</button>
         </div>
         <div>
             <button type="button" class="outline">Registrar</button>
         </div>
     </form>
+
+    <script src="./index.js"></script>
 </body>
 </html>
