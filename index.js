@@ -1,11 +1,14 @@
 //FUNÇÃO PRINCIPAL
-function validateFields() {
-    toogleButtonDisable();
+function onChangeEmail() {
     toggleEmailErrors();
+}
+function onChangePassword() {
+    toogleButtonDisable();
+    togglePasswordErrors();
 }
 
 function isEmailValid() {
-    const email = document.getElementById("email").value;
+    const email = form.email().value;
     if (!email) {
         return false;
     }
@@ -13,37 +16,41 @@ function isEmailValid() {
 }
 
 function toggleEmailErrors() {
-    const email = document.getElementById("email").value;
-    if (!email) {
-        document.getElementById('email-required-error').style.display = 'block';
-    } else {
-        document.getElementById('email-required-error').style.display = 'none';
-    }
+    const email = form.email().value;
+    //Campo email vazio
+    form.emailRequiredError().style.display = email ? "none" : "block";
+    //Email inválido
+    form.emailInvalidError.style.display = validateEmail(email) ? "none" : "block";
+}
 
-    if (validateEmail(email)) {
-        document.getElementById('email-invalid-error').style.display = 'block';
-    } else {
-        document.getElementById('email-invalid-error').style.display = 'none';
-    }
+function togglePasswordErrors() {
+    const password = form.password().value;
+    //Campo senha vazio
+    form.passwordRequiredError().style.display = password ? "none" : "block";
 }
 
 function toogleButtonDisable() {
     const emailValid = isEmailValid();
-    document.getElementById('recover-password-button').disabled = !emailValid;
+    form.recoverPassword().disabled = !emailValid;
 
     const passwordValid = isPasswordValid();
-    document.getElementById('login-button').disabled = !emailValid || !passwordValid;
+    form.loginButton().disabled = !emailValid || !passwordValid;
 }
 
 function isPasswordValid() {
-    const password = document.getElementById('password').value;
+    const password = form.password().value;
     if (!password) {
         return false;
     }
     return true;
 }
 
-//FUNÇÃO QUE VALIDA EMAIL
-function validateEmail(email) {
-    return /\S+@\S+\.\S+/.test(email);
-}
+const form = {
+    email: () => document.getElementById("email"),
+    emailRequiredError: () => document.getElementById('email-required-error'),
+    emailInvalidError: () => document.getElementById('email-invalid-error'),
+    loginButton: () => document.getElementById('login-button'),
+    password: () => document.getElementById('password'),
+    passwordRequiredError: () =>  document.getElementById('password-required-error'),
+    recoverPassword: () => document.getElementById('recover-password-button')
+};
